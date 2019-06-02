@@ -40,7 +40,7 @@ namespace ToyRobot.ConsoleApp
                 .BuildServiceProvider();
 
             // Run the application
-            serviceProvider.GetService<IApplication>().Run();
+            serviceProvider.GetRequiredService<IApplication>().Run();
         }
     }
 }

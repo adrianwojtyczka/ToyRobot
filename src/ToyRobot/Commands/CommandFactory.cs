@@ -165,7 +165,7 @@ namespace ToyRobot.Commands
         /// <returns>Returns created report command</returns>
         private ReportCommand CreateReportCommand()
         {
-            var output = _services.GetService<IOutput>();
+            var output = _services.GetRequiredService<IOutput>();
             return new ReportCommand(output);
         }
 
