@@ -20,13 +20,12 @@ namespace ToyRobot.Tests
         #region Place method tests
 
         [Theory]
-        [InlineData(0, 0)]
-        [InlineData(0, 4)]
-        [InlineData(4, 0)]
-        [InlineData(4, 4)]
-        public void Place_AtValidCoordinates_ShouldBeOnPassedCoordinates(int x, int y)
+        [InlineData(0, 0, Direction.North)]
+        [InlineData(0, 4, Direction.East)]
+        [InlineData(4, 0, Direction.South)]
+        [InlineData(4, 4, Direction.West)]
+        public void Place_AtValidCoordinatesAndFacing_ShouldBeOnSetCoordinatesAndFacing(int x, int y, Direction facing)
         {
-            const Direction facing = Direction.North;
             // Arrange
             var robot = TestHelper.CreateRobot();
 
@@ -36,6 +35,7 @@ namespace ToyRobot.Tests
             // Assert
             Assert.Equal(x, robot.X);
             Assert.Equal(y, robot.Y);
+            Assert.Equal(facing, robot.Facing);
         }
 
         [Theory]
@@ -58,26 +58,7 @@ namespace ToyRobot.Tests
             // Assert
             Assert.Throws<RobotException>(() => robot.X);
             Assert.Throws<RobotException>(() => robot.Y);
-        }
-
-        [Theory]
-        [InlineData(Direction.North)]
-        [InlineData(Direction.East)]
-        [InlineData(Direction.South)]
-        [InlineData(Direction.West)]
-        public void Place_GivenDirection_ShouldBeOnGivenDirection(Direction facing)
-        {
-            const int x = 2;
-            const int y = 2;
-
-            // Arrange
-            var robot = TestHelper.CreateRobot();
-
-            // Act
-            robot.Place(x, y, facing);
-
-            // Assert
-            Assert.Equal(facing, robot.Facing);
+            Assert.Throws<RobotException>(() => robot.Facing);
         }
 
         #endregion
